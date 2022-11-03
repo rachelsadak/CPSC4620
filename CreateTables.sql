@@ -1,0 +1,110 @@
+CREATE TABLE base_price (
+    BasePriceID int, 
+    Size varchar(255),
+    Crust varchar(255),
+    CustCost float, 
+    BusCost float,
+    PRIMARY KEY (BasePriceID)
+);
+
+CREATE TABLE pizza (
+    PizzaID int,
+    BusCost float,
+    CusCost float, 
+    Price float, 
+    State varchar(255),
+    OrderNum int, 
+    BaseCostID float,
+    PRIMARY KEY (PizzaID)
+    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+    FOREIGN KEY (BasePriceID) REFERENCES base_price(BasePriceID)
+);
+
+CREATE TABLE topping_choice (
+    PizzaID int, 
+    ToppingID int, 
+    Extra boolean,
+    Size varchar(255),
+    Crust varchar(255),
+    PRIMARY KEY (Size, Crust)
+
+);
+
+CREATE TABLE topping (
+    ToppingID int, 
+    ToppingName varchar(255)
+);
+
+CREATE TABLE pizza_discount (
+    DiscountID int, 
+    PizzaID int,
+    PRIMARY KEY (DiscountID),
+    PRIMARY KEY (PizzaID),
+    FOREIGN KEY (DiscountID) REFERENCES discount (DiscountID),
+    FOREIGN KEY (PizzaID) REFERENCES pizza(PizzaID)
+);
+
+CREATE TABLE order_discount (
+    DiscountID int, 
+    OrderID int,
+    PRIMARY KEY (DiscountID),
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (DiscountID) REFERENCES discount (DiscountID),
+    FOREIGN KEY (PizzaID) REFERENCES order(OrderNum)
+);
+
+CREATE TABLE discount (
+    DiscountID int, 
+    DiscountName varchar(255),
+    DiscountType varchar(255),
+    Amount float,
+    PRIMARY KEY (DiscountID)
+);
+
+CREATE TABLE order (
+    OrderNum int, 
+    PizzaID int, 
+    OrderTime varchar(255),
+    BusCost float, 
+    OrderDate varchar(255),
+    CustCost float, 
+    OrderType varchar(255),
+    OrderStatus varchar(255),
+    PRIMARY KEY (OrderNum),
+    FOREIGN KEY (PizzaID) REFERENCES pizza(PizzaID)
+);
+
+CREATE TABLE customer (
+    CustomerID int, 
+    FirstName varchar(255),
+    LastName varchar (255),
+    PhoneNumber int,
+    City varchar(255),
+    StateLetters varchar(255),
+    Zip int, 
+    PRIMARY KEY (CustomerID)
+);
+
+CREATE TABLE dine_in (
+    OrderNum int, 
+    TableNum int, 
+    PRIMARY KEY (OrderNum),
+    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+);
+
+CREATE TABLE delivery (
+    OrderNum int, 
+    CustomerID int, 
+    City varchar(255),
+    StateLetters varchar(255),
+    Zip int, 
+    PRIMARY KEY (OrderNum),
+    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+);
+
+CREATE TABLE pickup (
+    OrderNum int, 
+    CustomerID int, 
+    PRIMARY KEY (OrderNum),
+    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+);
