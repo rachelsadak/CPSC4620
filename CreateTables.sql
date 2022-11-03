@@ -7,19 +7,6 @@ CREATE TABLE base_price (
     PRIMARY KEY (BasePriceID)
 );
 
-CREATE TABLE pizza (
-    PizzaID int,
-    BusCost float,
-    CusCost float, 
-    Price float, 
-    State varchar(255),
-    OrderNum int, 
-    BaseCostID float,
-    PRIMARY KEY (PizzaID)
-    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
-    FOREIGN KEY (BasePriceID) REFERENCES base_price(BasePriceID)
-);
-
 CREATE TABLE topping_choice (
     PizzaID int, 
     ToppingID int, 
@@ -35,24 +22,6 @@ CREATE TABLE topping (
     ToppingName varchar(255)
 );
 
-CREATE TABLE pizza_discount (
-    DiscountID int, 
-    PizzaID int,
-    PRIMARY KEY (DiscountID),
-    PRIMARY KEY (PizzaID),
-    FOREIGN KEY (DiscountID) REFERENCES discount (DiscountID),
-    FOREIGN KEY (PizzaID) REFERENCES pizza(PizzaID)
-);
-
-CREATE TABLE order_discount (
-    DiscountID int, 
-    OrderID int,
-    PRIMARY KEY (DiscountID),
-    PRIMARY KEY (OrderID),
-    FOREIGN KEY (DiscountID) REFERENCES discount (DiscountID),
-    FOREIGN KEY (PizzaID) REFERENCES order(OrderNum)
-);
-
 CREATE TABLE discount (
     DiscountID int, 
     DiscountName varchar(255),
@@ -61,17 +30,45 @@ CREATE TABLE discount (
     PRIMARY KEY (DiscountID)
 );
 
-CREATE TABLE order (
-    OrderNum int, 
-    PizzaID int, 
+CREATE TABLE order_info (
+    OrderNum int,  
     OrderTime varchar(255),
     BusCost float, 
     OrderDate varchar(255),
     CustCost float, 
     OrderType varchar(255),
     OrderStatus varchar(255),
-    PRIMARY KEY (OrderNum),
+    PRIMARY KEY (OrderNum)
+);
+
+CREATE TABLE pizza (
+    PizzaID int,
+    BusCost float,
+    CusCost float, 
+    Price float, 
+    State varchar(255),
+    OrderNum int, 
+    BasePriceID int,
+    PRIMARY KEY (PizzaID),
+    FOREIGN KEY (OrderNum) REFERENCES order_info(OrderNum),
+    FOREIGN KEY (BasePriceID) REFERENCES base_price(BasePriceID)
+);
+
+CREATE TABLE pizza_discount (
+    DiscountID int, 
+    PizzaID int,
+    PRIMARY KEY (DiscountID, PizzaID),
+    FOREIGN KEY (DiscountID) REFERENCES discount(DiscountID),
     FOREIGN KEY (PizzaID) REFERENCES pizza(PizzaID)
+);
+
+CREATE TABLE order_discount (
+    DiscountID int, 
+    PizzaID int,
+    OrderID int,
+    PRIMARY KEY (DiscountID, OrderID),
+    FOREIGN KEY (DiscountID) REFERENCES discount (DiscountID),
+    FOREIGN KEY (PizzaID) REFERENCES order_info(OrderNum)
 );
 
 CREATE TABLE customer (
@@ -89,7 +86,7 @@ CREATE TABLE dine_in (
     OrderNum int, 
     TableNum int, 
     PRIMARY KEY (OrderNum),
-    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+    FOREIGN KEY (OrderNum) REFERENCES order_info(OrderNum)
 );
 
 CREATE TABLE delivery (
@@ -99,12 +96,12 @@ CREATE TABLE delivery (
     StateLetters varchar(255),
     Zip int, 
     PRIMARY KEY (OrderNum),
-    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+    FOREIGN KEY (OrderNum) REFERENCES order_info(OrderNum)
 );
 
 CREATE TABLE pickup (
     OrderNum int, 
     CustomerID int, 
     PRIMARY KEY (OrderNum),
-    FOREIGN KEY (OrderNum) REFERENCES order(OrderNum)
+    FOREIGN KEY (OrderNum) REFERENCES order_info(OrderNum)
 );
