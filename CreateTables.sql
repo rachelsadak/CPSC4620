@@ -19,14 +19,14 @@ CREATE TABLE topping_choice (
 );
 
  
-
+ 
 CREATE TABLE topping (
     ToppingID int,
     ToppingName varchar(255)
 );
 
- 
 
+ 
 CREATE TABLE discount (
     DiscountID int,
     DiscountName varchar(255),
