@@ -1,3 +1,5 @@
+USE Pizzeria;
+
 DROP TABLE topping_choice;
 DROP TABLE topping;
 DROP TABLE pizza_discount;
