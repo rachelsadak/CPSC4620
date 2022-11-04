@@ -1,3 +1,9 @@
+DROP SCHEMA IF EXISTS Pizzeria;
+
+CREATE SCHEMA Pizzeria;
+
+USE Pizzeria;
+
 CREATE TABLE base_price (
     BasePriceID int,
     Size varchar(255),
@@ -22,7 +28,14 @@ CREATE TABLE topping_choice (
  
 CREATE TABLE topping (
     ToppingID int,
-    ToppingName varchar(255)
+    ToppingName varchar(255),
+    Price float, 
+    CostPerUnit float, 
+    Inventory int, 
+    SmPizzaUnit int, 
+    MdPizzaUnit int, 
+    LgPizaUnit int, 
+    XlPizzaUnit int
 );
 
 
@@ -40,6 +53,7 @@ CREATE TABLE discount (
 CREATE TABLE order_info (
     OrderNum int,  
     OrderTime varchar(255),
+    TotalPrice float,
     BusCost float,
     OrderDate varchar(255),
     CustCost float,
@@ -54,6 +68,8 @@ CREATE TABLE pizza (
     PizzaID int,
     BusCost float,
     CusCost float,
+    Size varchar(255),
+    Crust varchar(255),
     Price float,
     State varchar(255),
     OrderNum int,
