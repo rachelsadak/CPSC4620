@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "showcreatedb.cjqeoqe0xhec.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "testDB",
+            "database": "Pizzeria",
+            "username": "ctadmin",
+            "password": "White123"
+        }
+    ]
+}

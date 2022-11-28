@@ -30,6 +30,9 @@ public class Menu {
 		
 		int menu_option = 0;
 
+		DBConnector.make_connection();
+		
+		
 		// present a menu of options and take their selection
 		PrintMenu();
 		String option = reader.readLine();

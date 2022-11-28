@@ -120,14 +120,17 @@ public final class DBNinja {
 		return -1;
 	}
 	
-	public static void useTopping(Pizza p, Topping t, boolean isDoubled) throws SQLException, IOException //this function will update toppings inventory in SQL and add entities to the Pizzatops table. Pass in the p pizza that is using t topping
+	public static void useTopping(Pizza p, Topping t, boolean isDoubled) throws SQLException, IOException
+	//this function will update toppings inventory in SQL and
+	// add entities to the Pizzatops table. Pass in the p pizza that is using t topping
+	// topping
 	{
 		connect_to_db();
 		/*
 		 * This function should 2 two things.
 		 * We need to update the topping inventory every time we use t topping (accounting for extra toppings as well)
 		 * and we need to add that instance of topping usage to the pizza-topping bridge if we haven't done that elsewhere
-		 * Ideally, you should't let toppings go negative. If someone tries to use toppings that you don't have, just print
+		 * Ideally, you shouldn't let toppings go negative. If someone tries to use toppings that you don't have, just print
 		 * that you've run out of that topping.
 		 */
 		
@@ -137,7 +140,7 @@ public final class DBNinja {
 		
 		
 		
-		//DO NOT FORGET TO CLOSE YOUR CONNECTION
+		conn.close();
 	}
 	
 	
