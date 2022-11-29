@@ -167,12 +167,12 @@ public class Pizza
 		//also add to the prices of the pizza
 		if(isExtra)
 		{
-			this.BusPrice += t.getBusPrice()*2;
+			this.BusPrice += t.getPerUnit()*2;
 			this.CustPrice += t.getCustPrice()*2;
 		}
 		else
 		{
-			this.BusPrice += t.getBusPrice();
+			this.BusPrice += t.getPerUnit();
 			this.CustPrice += t.getCustPrice();
 		}
 
