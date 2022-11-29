@@ -142,10 +142,10 @@ CREATE TABLE `topping` (
   `Price` float DEFAULT NULL,
   `CostPerUnit` float DEFAULT NULL,
   `Inventory` int DEFAULT NULL,
-  `SmPizzaUnit` int DEFAULT NULL,
-  `MdPizzaUnit` int DEFAULT NULL,
-  `LgPizzaUnit` int DEFAULT NULL,
-  `XlPizzaUnit` int DEFAULT NULL
+  `SmPizzaUnit` float DEFAULT NULL,
+  `MdPizzaUnit` float DEFAULT NULL,
+  `LgPizzaUnit` float DEFAULT NULL,
+  `XlPizzaUnit` float DEFAULT NULL
 );
 
 -- --------------------------------------------------------

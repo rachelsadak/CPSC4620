@@ -184,8 +184,16 @@ public final class DBNinja {
 		/*
 		 * This should add a customer to the database
 		 */
-				
-		
+
+		String query = "insert into customer(CustomerID, FirstName, LastName, PhoneNumber) VALUES" + "(?,?,?,?);";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setInt(1,c.getCustID());
+		ps.setString(2, c.getFName());
+		ps.setString(3, c.getLName());
+		ps.setString(4, c.getPhone());
+		ps.executeUpdate();
+
+		conn.close();
 		
 		
 		
@@ -262,16 +270,24 @@ public final class DBNinja {
 		 * should be returned in alphabetical order if you don't
 		 * plan on using a printInventory function
 		 */
+		String query = "Select * from topping ORDER BY ToppingName ASC;";
+		Statement stmt = conn.createStatement();
+		ResultSet rset = stmt.executeQuery(query);
 
-		
+		ArrayList<Topping> topp = new ArrayList<Topping>();
+		while (rset.next()){
+			//create topping object
+			Topping t = new Topping(rset.getInt(1), rset.getString(2), rset.getDouble(3),
+					rset.getDouble(4),rset.getInt(5), rset.getDouble(6),
+					rset.getDouble(7), rset.getDouble(8), rset.getDouble(9));
+			//add it to the topping array
+			topp.add(t);
+		}
 
-		
-		
-		
-		
-		
+		conn.close();
+
 		//DO NOT FORGET TO CLOSE YOUR CONNECTION
-		return null;
+		return topp;
 	}
 
 
@@ -355,13 +371,16 @@ public final class DBNinja {
 		double bp = 0.0;
 		// add code to get the base price (for the customer) for that size and crust pizza Depending on how
 		// you store size & crust in your database, you may have to do a conversion
-		
-		
-		
-		
-		
-		
-		
+
+		String query = "Select CustCost from base_price WHERE Size=" + size + " and Crust=" + crust + ";";
+		Statement stmt = conn.createStatement();
+		ResultSet rset = stmt.executeQuery(query);
+
+		while (rset.next()){
+			bp = rset.getDouble(1);
+		}
+
+		conn.close();
 		//DO NOT FORGET TO CLOSE YOUR CONNECTION
 		return bp;
 	}
@@ -376,7 +395,7 @@ public final class DBNinja {
 		 */
 		connect_to_db();
 		String ret = "";
-		String query = "Select FName, LName From Customer WHERE CustID=" + CustID + ";";
+		String query = "Select FirstName, LastName From customer WHERE CustomerID=" + CustID + ";";
 		Statement stmt = conn.createStatement();
 		ResultSet rset = stmt.executeQuery(query);
 		
@@ -393,11 +412,16 @@ public final class DBNinja {
 		double bp = 0.0;
 		// add code to get the base cost (for the business) for that size and crust pizza Depending on how
 		// you store size and crust in your database, you may have to do a conversion
-		
-		
-		
-		
-		
+		String query = "Select BusCost from base_price WHERE Size=" + size + " and Crust=" + crust + ";";
+		Statement stmt = conn.createStatement();
+		ResultSet rset = stmt.executeQuery(query);
+
+		while (rset.next()){
+			bp = rset.getDouble(1);
+		}
+
+		conn.close();
+
 		//DO NOT FORGET TO CLOSE YOUR CONNECTION
 		return bp;
 	}
@@ -420,6 +444,7 @@ public final class DBNinja {
 	}
 
 
+	//done
 	public static ArrayList<Customer> getCustomerList() throws SQLException, IOException {
 		ArrayList<Customer> custs = new ArrayList<Customer>();
 		connect_to_db();
@@ -427,14 +452,29 @@ public final class DBNinja {
 		 * return an arrayList of all the customers. These customers should
 		 *print in alphabetical order, so account for that as you see fit.
 		*/
-
-
-		
-		
-		
-		
-		
-		//DO NOT FORGET TO CLOSE YOUR CONNECTION
+		//select list of all customers
+		String query = "SELECT * FROM customer ORDER BY LastName ASC;";
+		Statement stmt = conn.createStatement();
+		try{
+			ResultSet rset = stmt.executeQuery(query);
+			while(rset.next())
+			{
+				int ID = rset.getInt(1);
+				String FirstName = rset.getString(2);
+				String LastName = rset.getString(3);
+				String Phone_number = rset.getString(4);
+				custs.add(new Customer(ID, FirstName, LastName, Phone_number));
+			}
+		}
+		catch(SQLException e) {
+			System.out.println("Error loading Customer");
+			while (e != null) {
+				System.out.println("Message     : " + e.getMessage());
+				e = e.getNextException();
+			}
+			conn.close();
+			return custs;
+		}
 		return custs;
 	}
 	

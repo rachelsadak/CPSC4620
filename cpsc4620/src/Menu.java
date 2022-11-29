@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 /*
  * This file is where the front end magic happens.
@@ -116,10 +117,18 @@ public class Menu {
 	
 	public static void viewCustomers()
 	{
-		/*
-		 * Simply print out all of the customers from the database. 
-		 */
-		
+		try
+		{
+			ArrayList<Customer> cust = DBNinja.getCustomerList();
+			for (int i = 0; i< cust.size(); i++){
+
+				System.out.println(cust.get(i).toString());
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		
 		
@@ -142,7 +151,26 @@ public class Menu {
 		 * 
 		 * Once you get the name and phone number (and anything else your design might have) add it to the DB
 		 */
-		
+		try {
+			String fName, lName, pNum;
+			ArrayList<Customer> a = DBNinja.getCustomerList();
+			Integer custID = a.size() + 1;
+			//reading in user data
+			Scanner readIn = new Scanner(System.in);
+			System.out.println("Please enter first name");
+			fName = readIn.nextLine();
+			System.out.println("Please enter last name");
+			lName = readIn.nextLine();
+			System.out.println("Please enter phone number, format: 123-456-7890");
+			pNum = readIn.nextLine();
+			//create customer
+			Customer c = new Customer(custID, fName, lName, pNum);
+			//System.out.println(c.toString());
+			DBNinja.addCustomer(c);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		
 
 	}
@@ -184,8 +212,25 @@ public class Menu {
 	public static void ViewInventoryLevels() throws SQLException, IOException 
 	{
 		//print the inventory. I am really just concerned with the ID, the name, and the current inventory
-		
-		
+
+		try
+		{
+			ArrayList<Topping> t = DBNinja.getInventory();
+			for (int i = 0; i< t.size(); i++){
+
+				System.out.print("ID: ");
+				System.out.print(t.get(i).getTopID());
+				System.out.print("\t\t Name: ");
+				System.out.print(t.get(i).getTopName());
+				System.out.print("\n\t\t Inventory: ");
+				System.out.println(t.get(i).getCurINVT());
+
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		
 		

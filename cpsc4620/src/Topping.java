@@ -11,27 +11,28 @@ public class Topping
 	
 	private int TopID;
 	private String TopName;
-	private double PerAMT;
+	private double CustPrice;
+	private double PerUnit;
+	private int CurINVT;
+	private double SmAMT;
 	private double MedAMT;
 	private double LgAMT;
 	private double XLAMT;
-	private double CustPrice;
-	private double BusPrice;
-	private int MinINVT;
-	private int CurINVT;
+
+
 	
-	public Topping(int topID, String topName, double perAMT, double medAMT, double lgAMT, double xLAMT,
-			double custPrice, double busPrice, int minINVT, int curINVT) {
+	public Topping(int topID, String topName, double custPrice, double perUnit, int curINVT,
+				   double smAMT, double medAMT, double lgAMT, double xLAMT) {
 		TopID = topID;
 		TopName = topName;
-		PerAMT = perAMT;
+		CustPrice = custPrice;
+		PerUnit = perUnit;
+		CurINVT = curINVT;
+		SmAMT = smAMT;
 		MedAMT = medAMT;
 		LgAMT = lgAMT;
 		XLAMT = xLAMT;
-		CustPrice = custPrice;
-		BusPrice = busPrice;
-		MinINVT = minINVT;
-		CurINVT = curINVT;
+
 	}
 
 	public int getTopID() {
@@ -42,8 +43,20 @@ public class Topping
 		return TopName;
 	}
 
-	public double getPerAMT() {
-		return PerAMT;
+	public double getCustPrice() {
+		return CustPrice;
+	}
+
+	public double getPerUnit() {
+		return PerUnit;
+	}
+
+	public int getCurINVT() {
+		return CurINVT;
+	}
+
+	public double getSmAMT() {
+		return SmAMT;
 	}
 
 	public double getMedAMT() {
@@ -58,21 +71,6 @@ public class Topping
 		return XLAMT;
 	}
 
-	public double getCustPrice() {
-		return CustPrice;
-	}
-
-	public double getBusPrice() {
-		return BusPrice;
-	}
-
-	public int getMinINVT() {
-		return MinINVT;
-	}
-
-	public int getCurINVT() {
-		return CurINVT;
-	}
 
 	public void setTopID(int topID) {
 		TopID = topID;
@@ -82,8 +80,20 @@ public class Topping
 		TopName = topName;
 	}
 
-	public void setPerAMT(double perAMT) {
-		PerAMT = perAMT;
+	public void setCustPrice(double custPrice) {
+		CustPrice = custPrice;
+	}
+
+	public void setPerUnit(double perUnit) {
+		PerUnit = perUnit;
+	}
+
+	public void setCurINVT(int curINVT) {
+		CurINVT = curINVT;
+	}
+
+	public void setSmAMT(double SmAMT) {
+		SmAMT = SmAMT;
 	}
 
 	public void setMedAMT(double medAMT) {
@@ -98,27 +108,13 @@ public class Topping
 		XLAMT = xLAMT;
 	}
 
-	public void setCustPrice(double custPrice) {
-		CustPrice = custPrice;
-	}
 
-	public void setBusPrice(double busPrice) {
-		BusPrice = busPrice;
-	}
-
-	public void setMinINVT(int minINVT) {
-		MinINVT = minINVT;
-	}
-
-	public void setCurINVT(int curINVT) {
-		CurINVT = curINVT;
-	}
 
 	@Override
 	public String toString() {
-		return "Topping [TopID=" + TopID + ", TopName=" + TopName + ", PerAMT=" + PerAMT + ", MedAMT=" + MedAMT
-				+ ", LgAMT=" + LgAMT + ", XLAMT=" + XLAMT + ", CustPrice=" + CustPrice + ", BusPrice=" + BusPrice
-				+ ", MinINVT=" + MinINVT + ", CurINVT=" + CurINVT + "]";
+		return "Topping [TopID=" + TopID + ", TopName=" + TopName + ", CustPrice=" + CustPrice +
+				", PricePerUnit=" + PerUnit + ", CurINVT=" + CurINVT + ", SmAMT=" + SmAMT +
+				", MedAMT=" + MedAMT + ", LgAMT=" + LgAMT + ", XLAMT=" + XLAMT + "]";
 	}
 	
 	

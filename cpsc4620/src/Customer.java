@@ -13,7 +13,7 @@ public class Customer
 	private String FName;
 	private String LName;
 	private String Phone;
-	private String Address;
+
 	
 	
 	public Customer(int custID, String fName, String lName, String phone) {
